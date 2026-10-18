@@ -1,7 +1,3 @@
-### Changes
-
-*
-
 ### Progress
 
 * [x] Change must not contain extraneous whitespace
