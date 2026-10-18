@@ -1,0 +1,70 @@
+name: qg-maven
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  merge_group:
+    types:
+      - checks_requested
+  workflow_dispatch:
+
+# Keep only the latest run for a given pull request or branch.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.header || github.ref }}
+  cancel-in-progress: true
+
+# Workflows start with read-only permissions unless a job needs more.
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  qg-maven:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: 'false'
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6.1.0
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+
+      - name: Validate Maven Wrapper
+        run: |
+          set -euo pipefail
+          
+          if [[ ! -x ./mvnw ]]; then
+            echo "::error::Maven Wrapper script 'mvnw' is missing or is not executable."
+            exit 1
+          fi
+          
+          if [[ ! -f .mvn/wrapper/maven-wrapper.properties ]]; then
+            echo "::error::Maven Wrapper configuration '.mvn/wrapper/maven-wrapper.properties' is missing."
+            exit 1
+          fi
+
+      - name: Report toolchain versions
+        run: |
+          java --version
+          ./mvnw --batch-mode --no-transfer-progress --version
+
+      - name: Run Maven quality gate
+        run: >-
+          ./mvnw
+          --batch-mode
+          --no-transfer-progress
+          --errors
+          clean
+          verify
