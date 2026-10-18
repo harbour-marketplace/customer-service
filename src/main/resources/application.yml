@@ -1,0 +1,54 @@
+# Spring settings
+
+spring:
+
+  # Application settings
+  application:
+    name: customer-service
+
+  # Database settings
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  # Hibernate settings
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+          batch_size: 25
+        order_inserts: true
+        order_updates: true
+        query:
+          plan_cache_max_size: 4096
+          in_clause_parameter_padding: true
+          fail_on_pagination_over_collection_fetch: true
+
+
+  # MVC settings
+  mvc:
+    problemdetails:
+      enabled: true
+
+  # Kafka settings
+  kafka:
+    bootstrap-servers:
+      - ${KAFKA_BOOTSTRAP_SERVERS}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID}
+
+# Server settings
+server:
+  compression:
+    enabled: true
+
+# Management settings
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
