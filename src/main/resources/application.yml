@@ -1,5 +1,4 @@
 # Spring settings
-
 spring:
 
   # Application settings
@@ -28,7 +27,6 @@ spring:
           plan_cache_max_size: 4096
           in_clause_parameter_padding: true
           fail_on_pagination_over_collection_fetch: true
-
 
   # MVC settings
   mvc:
