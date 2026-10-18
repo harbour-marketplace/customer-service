@@ -24,8 +24,7 @@ defaults:
     shell: bash
 
 jobs:
-  qg-verify:
-    name: qg-verify
+  qg-maven:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
