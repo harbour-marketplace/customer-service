@@ -40,6 +40,12 @@ spring:
     consumer:
       group-id: ${KAFKA_CONSUMER_GROUP_ID}
 
+  # Flyway settings
+  flyway:
+    default-schema: profile
+    locations:
+      - classpath:flyway/scripts
+
 # Server settings
 server:
   compression:
