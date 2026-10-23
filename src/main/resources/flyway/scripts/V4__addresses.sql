@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS profile.addresses
     customer_id    uuid        NOT NULL REFERENCES customers,
     address_type   text        NOT NULL
         CONSTRAINT chk_address_type
-            CHECK (address_type IN ('residental', 'postal')),
+            CHECK (address_type IN ('RESIDENTIAL', 'POSTAL')),
     address_line_1 text        NOT NULL,
     address_line_2 text,
     locality       text        NOT NULL,
