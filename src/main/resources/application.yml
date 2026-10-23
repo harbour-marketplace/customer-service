@@ -23,6 +23,7 @@ spring:
           batch_size: 25
         order_inserts: true
         order_updates: true
+        default_schema: profile
         query:
           plan_cache_max_size: 4096
           in_clause_parameter_padding: true
