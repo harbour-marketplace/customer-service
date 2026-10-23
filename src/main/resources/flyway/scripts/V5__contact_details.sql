@@ -8,5 +8,7 @@ CREATE TABLE IF NOT EXISTS profile.contact_details
     contact_value text        NOT NULL,
     is_primary    boolean     NOT NULL,
     created_at    timestamptz NOT NULL DEFAULT now(),
-    updated_at    timestamptz NOT NULL DEFAULT now()
+    updated_at    timestamptz NOT NULL DEFAULT now(),
+
+    PRIMARY KEY (id)
 );
